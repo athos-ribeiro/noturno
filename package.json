@@ -1,0 +1,16 @@
+{
+  "title": "noturno",
+  "name": "noturno",
+  "version": "0.0.1",
+  "description": "Easily switch between proxy configurations",
+  "main": "index.js",
+  "author": "Athos Ribeiro",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "GPLv3",
+  "keywords": [
+    "jetpack"
+  ]
+}
