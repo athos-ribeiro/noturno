@@ -14,7 +14,7 @@ When installed, this Add-On will display a button on the tool bar:
 To switch between manual and system proxy settings you may either
 
 * **press the Add-On button on the toolbar**
-* press **crtl-alt-x**
+* press **crtl-shift-x**
 
 ### License and Copyright
 
