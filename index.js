@@ -12,14 +12,13 @@ var proxyOffIcon = {
   "64": "./grey_64.png"
 };
 
-proxyOnLabel = "Proxy On";
-proxyOffLabel = "Proxy Off";
+var proxyOnLabel = "Proxy is On - press ctrl+shift+X to turn off";
+var proxyOffLabel = "Proxy is Off - press ctrl+shift+X to turn on";
 
 var initialIcon = proxyOnIcon;
 var initialLabel = proxyOnLabel;
 
 var service = require("sdk/preferences/service");
-var param = "network.proxy.type";
 
 // possible values for network.proxy.type
 var proxyNone = 0; // No proxy
@@ -33,7 +32,7 @@ var proxyOn = proxyManual;
 // TODO: save user proxyOff configuration in case she closes the browser
 //  note that not doing so will possibly change user's proxyOff configuration
 //  whenever she re-opens Firefox
-switch(service.get(param)) {
+switch(service.get("network.proxy.type")) {
   case proxyNone:
     proxyOff = proxyNone;
     break;
@@ -42,7 +41,7 @@ switch(service.get(param)) {
     break;
 }
 
-if(service.get(param) == proxyOff) {
+if(service.get("network.proxy.type") == proxyOff) {
   initialIcon = proxyOffIcon;
   initialLabel = proxyOffLabel;
 }
@@ -62,13 +61,13 @@ var showHotKey = Hotkey({
 });
 
 function toggleProxyConfig() {
-  if(service.get(param) == proxyOff) {
-    service.set(param, proxyOn);
+  if(service.get("network.proxy.type") == proxyOff) {
+    service.set("network.proxy.type", proxyOn);
     button.icon = proxyOnIcon;
     button.label = proxyOnLabel;
   }
   else {
-    service.set(param, proxyOff);
+    service.set("network.proxy.type", proxyOff);
     button.icon = proxyOffIcon;
     button.label = proxyOffLabel;
   }
