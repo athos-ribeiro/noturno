@@ -73,3 +73,7 @@ function toggleProxyConfig() {
   }
 }
 
+module.exports.proxyOnLabel = proxyOnLabel
+module.exports.proxyOffLabel = proxyOffLabel
+module.exports.toggleProxyConfig = toggleProxyConfig
+

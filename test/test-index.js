@@ -1,19 +1,17 @@
-var main = require("../");
+var index = require("../index");
 
-exports["test main"] = function(assert) {
-  assert.pass("Unit test running!");
+exports["test checkDefaultType"] = function(assert) {
+  assert.equal(5, require("sdk/preferences/service").get("network.proxy.type"), "default config OK");
 };
 
-exports["test main async"] = function(assert, done) {
-  assert.pass("async Unit test running!");
-  done();
+exports["test labels"] = function(assert) {
+  assert.equal("Proxy is On - press ctrl+shift+X to turn off", index.proxyOnLabel, "On label OK");
+  assert.equal("Proxy is Off - press ctrl+shift+X to turn on", index.proxyOffLabel, "Off label OK");
 };
 
-exports["test dummy"] = function(assert, done) {
-  main.dummy("foo", function(text) {
-    assert.ok((text === "foo"), "Is the text actually 'foo'");
-    done();
-  });
+exports["test toggleProxyConfig"] = function(assert) {
+  index.toggleProxyConfig();
+  assert.equal(1, require("sdk/preferences/service").get("network.proxy.type"), "toggle works");
 };
 
 require("sdk/test").run(exports);
