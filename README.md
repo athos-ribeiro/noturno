@@ -16,6 +16,10 @@ To switch between manual and system proxy settings you may either
 * **press the Add-On button on the toolbar**
 * press **crtl-shift-x**
 
+### Android support
+
+It is possoble to toggle the proxy settings by browsing to about:logo. For now, this is the easiest way to use this add-on on android devices.
+
 ### License and Copyright
 
 Copyright 2016 Athos Ribeiro
