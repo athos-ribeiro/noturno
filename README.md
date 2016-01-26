@@ -4,6 +4,8 @@ noturno
 Firefox Add-On to switch between proxy settings.
 ----------------------------------------
 
+https://addons.mozilla.org/en-US/firefox/addon/noturno/
+
 When installed, this Add-On will display a button on the tool bar:
 
 * Whenever the button is gray, proxy settings are on "**Use System Proxy Settings**" (Firefox default)
