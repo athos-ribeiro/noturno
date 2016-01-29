@@ -1,15 +1,15 @@
 var self = require('sdk/self');
 
 var proxyOnIcon = {
-  "16": "./green_16.png",
-  "32": "./green_32.png",
-  "64": "./green_64.png"
+  "16": "./on_16.png",
+  "32": "./on_32.png",
+  "64": "./on_64.png"
 };
 
 var proxyOffIcon = {
-  "16": "./grey_16.png",
-  "32": "./grey_32.png",
-  "64": "./grey_64.png"
+  "16": "./off_16.png",
+  "32": "./off_32.png",
+  "64": "./off_64.png"
 };
 
 var proxyOnLabel = "Proxy is On - press ctrl+shift+X to turn off";

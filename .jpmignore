@@ -4,3 +4,4 @@ test/
 .jpmignore
 *.xpi
 data/full_art.png
+data/FA_noturno.ai
