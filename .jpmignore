@@ -3,3 +3,4 @@ test/
 .gitignore
 .jpmignore
 *.xpi
+data/full_art.png
