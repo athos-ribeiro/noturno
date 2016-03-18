@@ -7,7 +7,6 @@
   "author": "Athos Ribeiro",
   "engines": {
     "firefox": ">=38.0a1",
-    "fennec": ">=38.0a1"
   },
   "license": "GPLv3",
   "keywords": [

@@ -15,10 +15,6 @@ var proxyOffIcon = {
 var proxyOnLabel = "Proxy is On - press ctrl+shift+X to turn off";
 var proxyOffLabel = "Proxy is Off - press ctrl+shift+X to turn on";
 
-var triggerUrl = "about:logo";
-var proxyOnAndroidLabel = "Proxy is now ON\nbrowse to " + triggerUrl + " to turn it off";
-var proxyOffAndroidLabel = "Proxy is now OFF\nbrowse to " + triggerUrl + " to turn it on";
-
 var initialIcon = proxyOnIcon;
 var initialLabel = proxyOnLabel;
 
@@ -76,21 +72,6 @@ function toggleProxyConfig() {
     button.label = proxyOffLabel;
   }
 }
-
-var pageMod = require("sdk/page-mod");
-var togglerUrl = pageMod.PageMod({
-  include: triggerUrl,
-  contentScriptFile: self.data.url("alert.js"),
-  onAttach: function(worker) {
-    toggleProxyConfig();
-    if(service.get("network.proxy.type") == proxyOff) {
-      worker.port.emit("alert", proxyOffAndroidLabel);
-    }
-    else {
-      worker.port.emit("alert", proxyOnAndroidLabel);
-    }
-  }
-});
 
 module.exports.proxyOnLabel = proxyOnLabel
 module.exports.proxyOffLabel = proxyOffLabel

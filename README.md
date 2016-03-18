@@ -20,7 +20,7 @@ To switch between manual and system proxy settings you may either
 
 ### Android support
 
-It is possoble to toggle the proxy settings by browsing to about:logo. For now, this is the easiest way to use this add-on on android devices.
+Noturno does not support android for now.
 
 ### License and Copyright
 
