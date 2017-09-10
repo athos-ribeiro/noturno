@@ -24,7 +24,7 @@ Noturno does not support android for now.
 
 ### License and Copyright
 
-Copyright 2016 Athos Ribeiro
+Copyright 2017 Athos Ribeiro
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
