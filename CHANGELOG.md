@@ -1,5 +1,12 @@
 # Change Log
+All notable changes to this project will be documented in this file.
 
-## Unreleased
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+
+## [Unreleased]
+### Added
+- Add a menu to the addon.
+
 ### Changed
-- Port addon to WebExtensions
+- Port addon to WebExtensions.
+- Use addon proxy data instead of Firefox proxy configurations.
