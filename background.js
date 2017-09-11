@@ -27,6 +27,7 @@ var initialLabel = proxyOnLabel;
 
 var messageToProxy = {
   proxyOn: false,
+  // This should be fetched from the storage and set from the menu
   proxy: "PROXY athoscr.me:3128"
 };
 
@@ -49,9 +50,6 @@ function toggleProxyConfig() {
   }
 }
 
-// turns on/off
-// the onClicked listener was deactivvated since we now have a menu
-// chrome.browserAction.onClicked.addListener(toggleProxyConfig);
 browser.commands.onCommand.addListener(function(command) {
   if (command == "toggle-status") {
     toggleProxyConfig();
