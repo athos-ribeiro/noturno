@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "Easily switch between proxy configurations",
   "permissions": [
-    "proxy"
+    "proxy",
+    "storage"
   ],
   "background": {
     "scripts": ["background.js"]

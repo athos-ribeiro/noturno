@@ -10,16 +10,19 @@ const noProxy = "DIRECT stub_param";
 var proxy = noProxy;
 var proxyOn = false;
 
-browser.runtime.sendMessage("noturno: PAC script initialized");
+browser.runtime.sendMessage("PAC script initialized");
 
 browser.runtime.onMessage.addListener((message) => {
-  proxyOn = message.proxyOn;
-  if(proxyOn) {
-    browser.runtime.sendMessage("noturno: Setting proxy to " + message.proxy);
-    proxy = message.proxy;
-  } else {
-    browser.runtime.sendMessage("noturno: Proxy off");
+  proxyOn = message.enabled;
+  if(proxyOn && message.host && message.port) {
+    browser.runtime.sendMessage("Setting proxy to " + message.host + ":" + message.port);
+    proxy = "PROXY " + message.host + ":" + message.port;
+  } else if(proxyOn) {
+    browser.runtime.sendMessage("Host or Port missing, setting proxy to DIRECT");
     proxy = noProxy;
+  } else {
+      browser.runtime.sendMessage("Proxy off");
+      proxy = noProxy;
   }
 });
 

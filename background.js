@@ -22,29 +22,63 @@ const proxyOffIcon = {
 const proxyOnLabel = "Proxy is On - press ctrl+shift+X to turn off";
 const proxyOffLabel = "Proxy is Off - press ctrl+shift+X to turn on";
 
-var initialIcon = proxyOnIcon;
-var initialLabel = proxyOnLabel;
+var proxy = {
+  enabled: false,
+  host: '',
+  port: ''
+}
 
-var messageToProxy = {
-  proxyOn: false,
-  // This should be fetched from the storage and set from the menu
-  proxy: "PROXY athoscr.me:3128"
-};
+function init() {
+  browser.storage.local.get()
+    .then((storedSettings) => {
+      if("enabled" in storedSettings) {
+        proxy.enabled = storedSettings.enabled;
+        if(proxy.enabled) {
+          browser.browserAction.setIcon({path: proxyOnIcon});
+          browser.browserAction.setTitle({title: proxyOnLabel});
+        }
+      }
+      if("host" in storedSettings) {
+        proxy.host = storedSettings.host;
+      }
+      if("port" in storedSettings) {
+        proxy.port = storedSettings.port;
+      }
+      browser.runtime.sendMessage(proxy, {toProxyScript: true});
+    });
+}
 
-var proxyOn = false;
+function getProxyConfig() {
+  browser.storage.local.get()
+    .then((storedSettings) => {
+      proxy.enabled = storedSettings.enabled;
+      proxy.host = storedSettings.host;
+      proxy.port = storedSettings.port;
+      browser.runtime.sendMessage(proxy, {toProxyScript: true});
+    });
+}
+
+function saveProxyConfig() {
+    browser.storage.local.set(proxy);
+}
+
+//getProxyConfig();
+init();
 
 function toggleProxyConfig() {
-  if(!proxyOn) {
-    proxyOn = true;
-    messageToProxy.proxyOn = true
-    browser.runtime.sendMessage(messageToProxy, {toProxyScript: true});
+  if(!proxy.enabled) {
+    proxy.enabled = true;
+    // we should only pass the enabled here
+    browser.storage.local.set(proxy);
+    browser.runtime.sendMessage(proxy, {toProxyScript: true});
     browser.browserAction.setIcon({path: proxyOnIcon});
     browser.browserAction.setTitle({title: proxyOnLabel});
   }
   else {
-    proxyOn = false;
-    messageToProxy.proxyOn = false
-    browser.runtime.sendMessage(messageToProxy, {toProxyScript: true});
+    proxy.enabled = false;
+    // we should only pass the enabled here
+    browser.storage.local.set(proxy);
+    browser.runtime.sendMessage(proxy, {toProxyScript: true});
     browser.browserAction.setIcon({path: proxyOffIcon});
     browser.browserAction.setTitle({title: proxyOffLabel});
   }
@@ -52,6 +86,8 @@ function toggleProxyConfig() {
 
 browser.commands.onCommand.addListener(function(command) {
   if (command == "toggle-status") {
+    // This message makes the popup toggle the switch when open
+    browser.runtime.sendMessage('toggle-switch');
     toggleProxyConfig();
   }
 });
