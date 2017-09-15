@@ -31,18 +31,16 @@ var proxy = {
 function init() {
   browser.storage.local.get()
     .then((storedSettings) => {
-      if("enabled" in storedSettings) {
+      if(("enabled" in storedSettings) && ("port" in storedSettings) && ("host" in storedSettings)) {
         proxy.enabled = storedSettings.enabled;
+        proxy.host = storedSettings.host;
+        proxy.port = storedSettings.port;
         if(proxy.enabled) {
           browser.browserAction.setIcon({path: proxyOnIcon});
           browser.browserAction.setTitle({title: proxyOnLabel});
         }
-      }
-      if("host" in storedSettings) {
-        proxy.host = storedSettings.host;
-      }
-      if("port" in storedSettings) {
-        proxy.port = storedSettings.port;
+      } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings)) {
+        saveProxyConfig();
       }
       browser.runtime.sendMessage(proxy, {toProxyScript: true});
     });
@@ -62,13 +60,12 @@ function saveProxyConfig() {
     browser.storage.local.set(proxy);
 }
 
-//getProxyConfig();
 init();
 
 function toggleProxyConfig() {
   if(!proxy.enabled) {
     proxy.enabled = true;
-    // we should only pass the enabled here
+    // TODO: Only proxy.enabled should be saved here
     browser.storage.local.set(proxy);
     browser.runtime.sendMessage(proxy, {toProxyScript: true});
     browser.browserAction.setIcon({path: proxyOnIcon});
@@ -76,7 +73,7 @@ function toggleProxyConfig() {
   }
   else {
     proxy.enabled = false;
-    // we should only pass the enabled here
+    // TODO: Only proxy.enabled should be saved here
     browser.storage.local.set(proxy);
     browser.runtime.sendMessage(proxy, {toProxyScript: true});
     browser.browserAction.setIcon({path: proxyOffIcon});
