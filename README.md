@@ -1,6 +1,13 @@
 noturno
 =======
 
+**noturno brought substantial changes in version 1.0.0: the new WebExtensions
+API will not let us access the proxy configurations in the browser, as the old
+SDK did. This means that now we must get those configurations in noturno,
+completely changing the addon core feature. This will also allow us to finally
+support other platforms in the future. If you have any questions, please open
+an issue or email me: athoscr AT fedoraproject.org**
+
 Firefox Add-On to switch between proxy settings.
 ----------------------------------------
 
@@ -8,19 +15,40 @@ https://addons.mozilla.org/en-US/firefox/addon/noturno/
 
 When installed, this Add-On will display a button on the tool bar:
 
-* Whenever the button is gray, proxy settings are on "**Use System Proxy Settings**" (Firefox default)
-* if otherwise, the button is green, proxy settings are on "**Manual Proxy Configuration**".
+* Whenever the button is gray, proxy settings are set to use no proxy at all.
+* If otherwise, the button is green, Firefox will use the proxy set on the **noturno** menu.
 
 ### Switching between proxy settings
 
-To switch between manual and system proxy settings you may either
+To switch between no proxy and your proxy settings you may either
 
-* **press the Add-On button on the toolbar**
-* press **crtl-shift-x**
+* **press the Add-On button on the toolbar and toggle the switch on the menu**
+* press **Alt-Shift-X**
 
 ### Android support
 
-Noturno does not support android for now.
+noturno does not support android for now. The calls bellow are not supported on
+Android versions of Firefox, which are used by noturno.
+
+* browser.browserAction.setIcon
+* browser.commands.onCommand.addListener
+
+### Calls to WebExtensions API
+
+Here is a complete list of all calls to the WEbExtensions API. This may be
+useful whenever porting noturno to other platforms. 
+
+* browser.browserAction.setIcon
+* browser.browserAction.setTitle
+* browser.commands.onCommand.addListener
+* browser.extension.getURL
+* browser.proxy.onProxyError.addListener
+* browser.proxy.registerProxyScript
+* browser.runtime.getBackgroundPage
+* browser.runtime.onMessage.addListener
+* browser.runtime.sendMessage
+* browser.storage.local.get
+* browser.storage.local.set
 
 ### License and Copyright
 

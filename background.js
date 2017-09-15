@@ -19,8 +19,8 @@ const proxyOffIcon = {
   "64": "data/off_64.png"
 };
 
-const proxyOnLabel = "Proxy is On - press ctrl+shift+X to turn off";
-const proxyOffLabel = "Proxy is Off - press ctrl+shift+X to turn on";
+const proxyOnLabel = "Proxy is On - press Alt+Shift+X to turn off";
+const proxyOffLabel = "Proxy is Off - press Alt+Shift+X to turn on";
 
 var proxy = {
   enabled: false,

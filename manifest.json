@@ -17,13 +17,13 @@
       "32": "data/off_32.png",
       "64": "data/off_64.png"
     },
-    "default_title": "Proxy is Off - press ctrl+shift+X to turn on",
+    "default_title": "Proxy is Off - press Alt+Shift+X to turn on",
     "default_popup": "menu/menu.html"
   },
   "commands": {
     "toggle-status": {
       "suggested_key": {
-        "default": "Ctrl+Shift+X",
+        "default": "Alt+Shift+X",
         "linux": "Alt+Shift+X"
       },
     "description": "Toggles proxy status - On/Off"
