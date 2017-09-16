@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "noturno",
-  "version": "1.0.1~dev",
+  "version": "1.0.1",
   "description": "Easily switch between proxy configurations",
   "permissions": [
     "proxy",
@@ -27,6 +27,11 @@
         "linux": "Alt+Shift+X"
       },
     "description": "Toggles proxy status - On/Off"
+    }
+  },
+  "applications": {
+    "gecko": {
+      "strict_min_version": "55.0"
     }
   }
 }
