@@ -54,7 +54,7 @@ function getProxyConfig() {
       proxy.enabled = storedSettings.enabled;
       proxy.host = storedSettings.host;
       proxy.port = storedSettings.port;
-      proxy.protocol = storedSettings.hprotocol;
+      proxy.protocol = storedSettings.protocol;
       browser.runtime.sendMessage(proxy, {toProxyScript: true});
     });
 }
