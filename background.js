@@ -24,7 +24,7 @@ const proxyOffLabel = "Proxy is Off - press Alt+Shift+X to turn on";
 
 var proxy = {
   enabled: false,
-  protocol: 'PROXY',
+  protocol: 'HTTP',
   host: '',
   port: ''
 }
