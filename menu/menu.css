@@ -64,13 +64,20 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-} 
+}
 
 /* button position */
 .panel-section-header > .switch {
   position:absolute;
   top:5px;
   right:2px;
+}
+
+.protocol-selection {
+  margin: 5px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 body{
