@@ -14,11 +14,11 @@ browser.runtime.sendMessage("PAC script initialized");
 
 browser.runtime.onMessage.addListener((message) => {
   proxyOn = message.enabled;
-  if(proxyOn && message.host && message.port) {
-    browser.runtime.sendMessage("Setting proxy to " + message.host + ":" + message.port);
-    proxy = "PROXY " + message.host + ":" + message.port;
+  if(proxyOn && message.host && message.port && message.protocol) {
+    browser.runtime.sendMessage("Setting proxy to " + message.protocol + " " + message.host + ":" + message.port);
+    proxy = message.protocol + " " + message.host + ":" + message.port;
   } else if(proxyOn) {
-    browser.runtime.sendMessage("Host or Port missing, setting proxy to DIRECT");
+    browser.runtime.sendMessage("Host, Port or Protocol missing, setting proxy to DIRECT");
     proxy = noProxy;
   } else {
       browser.runtime.sendMessage("Proxy off");

@@ -24,6 +24,7 @@ const proxyOffLabel = "Proxy is Off - press Alt+Shift+X to turn on";
 
 var proxy = {
   enabled: false,
+  protocol: 'PROXY',
   host: '',
   port: ''
 }
@@ -31,15 +32,16 @@ var proxy = {
 function init() {
   browser.storage.local.get()
     .then((storedSettings) => {
-      if(("enabled" in storedSettings) && ("port" in storedSettings) && ("host" in storedSettings)) {
+      if(("enabled" in storedSettings) && ("port" in storedSettings) && ("host" in storedSettings) && ("protocol" in storedSettings)) {
         proxy.enabled = storedSettings.enabled;
         proxy.host = storedSettings.host;
         proxy.port = storedSettings.port;
+        proxy.protocol = storedSettings.protocol;
         if(proxy.enabled) {
           browser.browserAction.setIcon({path: proxyOnIcon});
           browser.browserAction.setTitle({title: proxyOnLabel});
         }
-      } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings)) {
+      } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings) && !("protocol" in storedSettings)) {
         saveProxyConfig();
       }
       browser.runtime.sendMessage(proxy, {toProxyScript: true});
@@ -52,6 +54,7 @@ function getProxyConfig() {
       proxy.enabled = storedSettings.enabled;
       proxy.host = storedSettings.host;
       proxy.port = storedSettings.port;
+      proxy.protocol = storedSettings.hprotocol;
       browser.runtime.sendMessage(proxy, {toProxyScript: true});
     });
 }
