@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+### Added
+- Support different protocols like HTTPS and SOCKS.
+
 ## [1.0.1] 09-16-2017
 ### Changed
 - Set minimum Firefox version to 55.0. This is the first one to accept WebExtensions proxy API.
