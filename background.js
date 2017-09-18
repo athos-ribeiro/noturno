@@ -63,34 +63,21 @@ function saveProxyConfig() {
     browser.storage.local.set(proxy);
 }
 
-init();
-
 function toggleProxyConfig() {
   if(!proxy.enabled) {
     proxy.enabled = true;
-    // TODO: Only proxy.enabled should be saved here
-    browser.storage.local.set(proxy);
-    browser.runtime.sendMessage(proxy, {toProxyScript: true});
     browser.browserAction.setIcon({path: proxyOnIcon});
     browser.browserAction.setTitle({title: proxyOnLabel});
   }
   else {
     proxy.enabled = false;
-    // TODO: Only proxy.enabled should be saved here
-    browser.storage.local.set(proxy);
-    browser.runtime.sendMessage(proxy, {toProxyScript: true});
     browser.browserAction.setIcon({path: proxyOffIcon});
     browser.browserAction.setTitle({title: proxyOffLabel});
   }
+  // TODO: Only proxy.enabled should be saved here
+  browser.storage.local.set(proxy);
+  browser.runtime.sendMessage(proxy, {toProxyScript: true});
 }
-
-browser.commands.onCommand.addListener(function(command) {
-  if (command == "toggle-status") {
-    // This message makes the popup toggle the switch when open
-    browser.runtime.sendMessage('toggle-switch');
-    toggleProxyConfig();
-  }
-});
 
 function handleMessage(message, sender) {
   // only handle messages from the proxy script
@@ -100,5 +87,15 @@ function handleMessage(message, sender) {
 
   console.log(message);
 }
+
+init();
+
+browser.commands.onCommand.addListener(function(command) {
+  if (command == "toggle-status") {
+    // This message makes the popup toggle the switch when open
+    browser.runtime.sendMessage('toggle-switch');
+    toggleProxyConfig();
+  }
+});
 
 browser.runtime.onMessage.addListener(handleMessage);
