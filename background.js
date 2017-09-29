@@ -61,6 +61,7 @@ function getProxyConfig() {
 
 function saveProxyConfig() {
     browser.storage.local.set(proxy);
+    browser.runtime.sendMessage(proxy, {toProxyScript: true});
 }
 
 function toggleProxyConfig() {
@@ -74,9 +75,7 @@ function toggleProxyConfig() {
     browser.browserAction.setIcon({path: proxyOffIcon});
     browser.browserAction.setTitle({title: proxyOffLabel});
   }
-  // TODO: Only proxy.enabled should be saved here
-  browser.storage.local.set(proxy);
-  browser.runtime.sendMessage(proxy, {toProxyScript: true});
+  saveProxyConfig();
 }
 
 function handleMessage(message, sender) {
