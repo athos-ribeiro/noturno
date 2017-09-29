@@ -65,13 +65,12 @@ function saveProxyConfig() {
 }
 
 function toggleProxyConfig() {
-  if(!proxy.enabled) {
-    proxy.enabled = true;
+  proxy.enabled = !proxy.enabled;
+  if(proxy.enabled) {
     browser.browserAction.setIcon({path: proxyOnIcon});
     browser.browserAction.setTitle({title: proxyOnLabel});
   }
   else {
-    proxy.enabled = false;
     browser.browserAction.setIcon({path: proxyOffIcon});
     browser.browserAction.setTitle({title: proxyOffLabel});
   }
