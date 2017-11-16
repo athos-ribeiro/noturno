@@ -28,6 +28,7 @@ var proxy = {
   host: '',
   port: ''
 }
+var oneClickToggle = false
 
 function init() {
   browser.storage.local.get()
@@ -45,6 +46,10 @@ function init() {
         saveProxyConfig();
       }
       browser.runtime.sendMessage(proxy, {toProxyScript: true});
+      if("oneClickToggle" in storedSettings) {
+        oneClickToggle = storedSettings.oneClickToggle
+        toggleOneClickToggle(oneClickToggle)
+      }
     });
 }
 
@@ -86,6 +91,17 @@ function handleMessage(message, sender) {
   console.log(message);
 }
 
+function toggleOneClickToggle(checked) {
+  if(checked){
+    browser.browserAction.setPopup({popup: ""})
+    browser.browserAction.onClicked.addListener(toggleProxyConfig)
+  } else {
+    browser.browserAction.setPopup({popup: "menu/menu.html"})
+  }
+  oneClickToggle = checked
+  browser.storage.local.set({oneClickToggle: checked});
+}
+
 init();
 
 browser.commands.onCommand.addListener(function(command) {
@@ -93,6 +109,20 @@ browser.commands.onCommand.addListener(function(command) {
     // This message makes the popup toggle the switch when open
     browser.runtime.sendMessage('toggle-switch');
     toggleProxyConfig();
+  }
+});
+
+browser.menus.create({
+  id: "oneClickToggle",
+  type: "checkbox",
+  title: "One click toggle",
+  contexts: ["browser_action"],
+  checked: oneClickToggle
+});
+
+browser.menus.onClicked.addListener(function(info, tab) {
+  if (info.menuItemId == "oneClickToggle") {
+    toggleOneClickToggle(info.checked)
   }
 });
 

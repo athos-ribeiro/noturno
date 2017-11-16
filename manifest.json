@@ -5,7 +5,8 @@
   "description": "Easily switch between proxy configurations",
   "permissions": [
     "proxy",
-    "storage"
+    "storage",
+    "menus"
   ],
   "background": {
     "scripts": ["background.js"]
