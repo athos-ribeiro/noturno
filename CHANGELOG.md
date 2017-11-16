@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+
 ## [1.2] 11-16-2017
 ### Added
 - Add option to toggle proxy on/off with one click (activated in the right-click menu).
