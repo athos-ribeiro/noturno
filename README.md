@@ -25,6 +25,18 @@ To switch between no proxy and your proxy settings you may either
 * **press the Add-On button on the toolbar and toggle the switch on the menu**
 * press **Alt-Shift-X**
 
+### One-click toggle
+
+Starting on version 1.2, noturno supports one click toggle for proxy
+configurations. To enable this option,
+
+* right-click noturno button,
+* check the "One click toggle" box.
+
+Now you can toggle your proxy configurations just by clicking the button on the
+top right of your browser. Note that to change the proxy configurations, like
+host or port, you need to deactivate the "One click togle" feature.
+
 ### Android support
 
 noturno does not support android for now. The calls bellow are not supported on
