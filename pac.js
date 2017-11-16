@@ -16,7 +16,16 @@ browser.runtime.onMessage.addListener((message) => {
   proxyOn = message.enabled;
   if(proxyOn && message.host && message.port && message.protocol) {
     browser.runtime.sendMessage("Setting proxy to " + message.protocol + " " + message.host + ":" + message.port);
-    proxy = message.protocol + " " + message.host + ":" + message.port;
+    proxy = [
+      {
+        type: message.protocol,
+        host: message.host,
+        port: message.port,
+      }
+    ]
+    if(proxy[0].type == "SOCKS" || proxy[0].type == "SOCKS4") {
+      proxy[0].proxyDNS = true
+    }
   } else if(proxyOn) {
     browser.runtime.sendMessage("Host, Port or Protocol missing, setting proxy to DIRECT");
     proxy = noProxy;
