@@ -1,12 +1,21 @@
 noturno
 =======
 
-**noturno brought substantial changes in version 1.0.0: the new WebExtensions
+noturno brought substantial changes in version 1.0.0: the new WebExtensions
 API will not let us access the proxy configurations in the browser, as the old
 SDK did. This means that now we must get those configurations in noturno,
 completely changing the addon core feature. This will also allow us to finally
-support other platforms in the future. If you have any questions, please open
-an issue or email me: athoscr AT fedoraproject.org**
+support other platforms in the future.
+
+Starting on version 2.0.0, noturno dropped support to Firefox < 60 in favor of
+supporting Firefox >= 60. This happens due to the deprecation of
+`proxy.registerProxyScript` in favor of the new `proxy.onRequest` API event
+handler. For noturno ot means that we are now given more control over the proxy
+settings, allowing us to easily develop cool features in the future, such as per
+proxying requests based on URL filters.
+
+If you have any questions, please open an issue or email me: athoscr AT
+fedoraproject.org
 
 Firefox Add-On to switch between proxy settings.
 ----------------------------------------
@@ -54,8 +63,8 @@ useful whenever porting noturno to other platforms.
 * browser.browserAction.setTitle
 * browser.commands.onCommand.addListener
 * browser.extension.getURL
-* browser.proxy.onProxyError.addListener
-* browser.proxy.registerProxyScript
+* browser.proxy.onError.addListener
+* browser.proxy.onRequest.addListener
 * browser.runtime.getBackgroundPage
 * browser.runtime.onMessage.addListener
 * browser.runtime.sendMessage
@@ -64,7 +73,7 @@ useful whenever porting noturno to other platforms.
 
 ### License and Copyright
 
-Copyright 2017 Athos Ribeiro
+Copyright 2020 Athos Ribeiro
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

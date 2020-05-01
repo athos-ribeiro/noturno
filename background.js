@@ -1,11 +1,29 @@
-const proxyScriptURL = "pac.js";
-
-browser.proxy.registerProxyScript(proxyScriptURL);
-
 // Log errors from proxy script
-browser.proxy.onProxyError.addListener(error => {
+browser.proxy.onError.addListener(error => {
   console.error(`Proxy error: ${error.message}`);
 });
+
+var proxy = {
+  enabled: false,
+  type: 'http',
+  host: '',
+  port: ''
+}
+
+function proxyListener(requestDetails) {
+  proxyInfo = {
+    type: "direct"
+  }
+  if(proxy.enabled) {
+    proxyInfo = proxy
+    console.debug('proxying request: ', requestDetails);
+  }
+
+  return proxyInfo
+}
+
+proxyFilter = {urls: ["<all_urls>"]}
+browser.proxy.onRequest.addListener(proxyListener, proxyFilter);
 
 const proxyOnIcon = {
   "16": "data/on_16.png",
@@ -22,30 +40,23 @@ const proxyOffIcon = {
 const proxyOnLabel = "Proxy is On - press Alt+Shift+X to turn off";
 const proxyOffLabel = "Proxy is Off - press Alt+Shift+X to turn on";
 
-var proxy = {
-  enabled: false,
-  protocol: 'HTTP',
-  host: '',
-  port: ''
-}
 var oneClickToggle = false
 
 function init() {
   browser.storage.local.get()
     .then((storedSettings) => {
-      if(("enabled" in storedSettings) && ("port" in storedSettings) && ("host" in storedSettings) && ("protocol" in storedSettings)) {
+      if(("enabled" in storedSettings) && ("port" in storedSettings) && ("host" in storedSettings) && ("type" in storedSettings)) {
         proxy.enabled = storedSettings.enabled;
         proxy.host = storedSettings.host;
         proxy.port = storedSettings.port;
-        proxy.protocol = storedSettings.protocol;
+        proxy.type = storedSettings.type;
         if(proxy.enabled) {
           browser.browserAction.setIcon({path: proxyOnIcon});
           browser.browserAction.setTitle({title: proxyOnLabel});
         }
-      } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings) && !("protocol" in storedSettings)) {
+      } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings) && !("type" in storedSettings)) {
         saveProxyConfig();
       }
-      browser.runtime.sendMessage(proxy, {toProxyScript: true});
       if("oneClickToggle" in storedSettings) {
         oneClickToggle = storedSettings.oneClickToggle
         toggleOneClickToggle(oneClickToggle)
@@ -59,36 +70,27 @@ function getProxyConfig() {
       proxy.enabled = storedSettings.enabled;
       proxy.host = storedSettings.host;
       proxy.port = storedSettings.port;
-      proxy.protocol = storedSettings.protocol;
-      browser.runtime.sendMessage(proxy, {toProxyScript: true});
+      proxy.type = storedSettings.type;
     });
 }
 
 function saveProxyConfig() {
     browser.storage.local.set(proxy);
-    browser.runtime.sendMessage(proxy, {toProxyScript: true});
 }
 
 function toggleProxyConfig() {
   proxy.enabled = !proxy.enabled;
   if(proxy.enabled) {
+    console.debug("Proxy has been turned ON")
     browser.browserAction.setIcon({path: proxyOnIcon});
     browser.browserAction.setTitle({title: proxyOnLabel});
   }
   else {
+    console.debug("Proxy has been turned OFF")
     browser.browserAction.setIcon({path: proxyOffIcon});
     browser.browserAction.setTitle({title: proxyOffLabel});
   }
   saveProxyConfig();
-}
-
-function handleMessage(message, sender) {
-  // only handle messages from the proxy script
-  if (sender.url !=  browser.extension.getURL(proxyScriptURL)) {
-    return;
-  }
-
-  console.log(message);
 }
 
 function toggleOneClickToggle(checked) {
@@ -125,5 +127,3 @@ browser.menus.onClicked.addListener(function(info, tab) {
     toggleOneClickToggle(info.checked)
   }
 });
-
-browser.runtime.onMessage.addListener(handleMessage);

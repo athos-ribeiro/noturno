@@ -2,7 +2,7 @@ var toggle_switch = document.getElementById('toggle-switch');
 var icon = document.getElementById('icon');
 var host = document.getElementById('host');
 var port = document.getElementById('port');
-var protocol = document.getElementById('protocol');
+var type = document.getElementById('type');
 var apply = document.getElementById('apply');
 var reset = document.getElementById('reset');
 
@@ -10,7 +10,7 @@ function init(page) {
   page.getProxyConfig();
   host.value = page.proxy.host;
   port.value = page.proxy.port;
-  protocol.value = page.proxy.protocol;
+  type.value = page.proxy.type;
   toggle_switch.checked = page.proxy.enabled;
 }
 
@@ -21,14 +21,14 @@ function toggle(page) {
 function save(page) {
   page.proxy.host = host.value;
   page.proxy.port = port.value;
-  page.proxy.protocol = protocol.value;
+  page.proxy.type = type.value;
   page.saveProxyConfig();
 }
 
 function reset_fields(page) {
   host.value = page.proxy.host;
   port.value = page.proxy.port;
-  protocol.value = page.proxy.protocol;
+  type.value = page.proxy.type;
 }
 
 function onError(error) {

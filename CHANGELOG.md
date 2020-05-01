@@ -3,7 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [2.0.0] 05-01-2020
+### Added
+- Support for Firefox >= 60
+
+### Changed
+- Move from deprecated proxy.registerProxyScript to proxy.onRequest
+
+### Removed
+- Support for Firefox < 60
 
 ## [1.2] 11-16-2017
 ### Added
