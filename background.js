@@ -11,19 +11,12 @@ var proxy = {
 }
 
 function proxyListener(requestDetails) {
-  proxyInfo = {
-    type: "direct"
-  }
-  if(proxy.enabled) {
-    proxyInfo = proxy
-    console.debug('proxying request: ', requestDetails);
-  }
-
+  proxyInfo = proxy
+  console.debug('proxying request: ', requestDetails);
   return proxyInfo
 }
 
 proxyFilter = {urls: ["<all_urls>"]}
-browser.proxy.onRequest.addListener(proxyListener, proxyFilter);
 
 const proxyOnIcon = {
   "16": "data/on_16.png",
@@ -53,6 +46,7 @@ function init() {
         if(proxy.enabled) {
           browser.browserAction.setIcon({path: proxyOnIcon});
           browser.browserAction.setTitle({title: proxyOnLabel});
+          browser.proxy.onRequest.addListener(proxyListener, proxyFilter);
         }
       } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings) && !("type" in storedSettings)) {
         saveProxyConfig();
@@ -84,11 +78,13 @@ function toggleProxyConfig() {
     console.debug("Proxy has been turned ON")
     browser.browserAction.setIcon({path: proxyOnIcon});
     browser.browserAction.setTitle({title: proxyOnLabel});
+    browser.proxy.onRequest.addListener(proxyListener, proxyFilter);
   }
   else {
     console.debug("Proxy has been turned OFF")
     browser.browserAction.setIcon({path: proxyOffIcon});
     browser.browserAction.setTitle({title: proxyOffLabel});
+    browser.proxy.onRequest.removeListener(proxyListener);
   }
   saveProxyConfig();
 }
