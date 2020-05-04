@@ -7,7 +7,8 @@ var proxy = {
   enabled: false,
   type: 'http',
   host: '',
-  port: ''
+  port: '',
+  filters: {urls: ["<all_urls>"]}
 }
 
 function proxyListener(requestDetails) {
@@ -15,8 +16,6 @@ function proxyListener(requestDetails) {
   console.debug('proxying request: ', requestDetails);
   return proxyInfo
 }
-
-proxyFilter = {urls: ["<all_urls>"]}
 
 const proxyOnIcon = {
   "16": "data/on_16.png",
@@ -46,7 +45,7 @@ function init() {
         if(proxy.enabled) {
           browser.browserAction.setIcon({path: proxyOnIcon});
           browser.browserAction.setTitle({title: proxyOnLabel});
-          browser.proxy.onRequest.addListener(proxyListener, proxyFilter);
+          browser.proxy.onRequest.addListener(proxyListener, proxy.filters);
         }
       } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings) && !("type" in storedSettings)) {
         saveProxyConfig();
@@ -78,7 +77,7 @@ function toggleProxyConfig() {
     console.debug("Proxy has been turned ON")
     browser.browserAction.setIcon({path: proxyOnIcon});
     browser.browserAction.setTitle({title: proxyOnLabel});
-    browser.proxy.onRequest.addListener(proxyListener, proxyFilter);
+    browser.proxy.onRequest.addListener(proxyListener, proxy.filters);
   }
   else {
     console.debug("Proxy has been turned OFF")
