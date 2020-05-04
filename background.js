@@ -37,7 +37,10 @@ var oneClickToggle = false
 function init() {
   browser.storage.local.get()
     .then((storedSettings) => {
-      if(("enabled" in storedSettings) && ("port" in storedSettings) && ("host" in storedSettings) && ("type" in storedSettings)) {
+      requiredKeys = ["enabled", "port", "host", "type"]
+      hasRequiredKeys = requiredKeys.every(key => Object.keys(storedSettings).includes(key))
+      hasNoRequiredKeys = requiredKeys.every(key => !(Object.keys(storedSettings).includes(key)))
+      if(hasRequiredKeys) {
         proxy.enabled = storedSettings.enabled;
         proxy.host = storedSettings.host;
         proxy.port = storedSettings.port;
@@ -47,7 +50,7 @@ function init() {
           browser.browserAction.setTitle({title: proxyOnLabel});
           browser.proxy.onRequest.addListener(proxyListener, proxy.filters);
         }
-      } else if(!("enabled" in storedSettings) && !("port" in storedSettings) && !("host" in storedSettings) && !("type" in storedSettings)) {
+      } else if(hasNoRequiredKeys) {
         saveProxyConfig();
       }
       if("oneClickToggle" in storedSettings) {
