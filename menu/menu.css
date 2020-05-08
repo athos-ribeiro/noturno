@@ -73,13 +73,15 @@ input:checked + .slider:before {
   right:2px;
 }
 
-.type-selection {
-  margin: 5px;
-  text-align: center;
-  display: inline-block;
-  vertical-align: middle;
-}
-
 body{
   overflow-x: hidden;
+}
+
+button.browser-style.default.save {
+  flex-grow: 1;
+  height: 41px;
+  text-align: center;
+}
+.panel-formElements-item select {
+  flex-grow: 1;
 }

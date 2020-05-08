@@ -3,8 +3,7 @@ var icon = document.getElementById('icon');
 var host = document.getElementById('host');
 var port = document.getElementById('port');
 var type = document.getElementById('type');
-var apply = document.getElementById('apply');
-var reset = document.getElementById('reset');
+var form = document.getElementById('settings-form');
 
 function init(page) {
   page.getProxyConfig();
@@ -25,12 +24,6 @@ function save(page) {
   page.saveProxyConfig();
 }
 
-function reset_fields(page) {
-  host.value = page.proxy.host;
-  port.value = page.proxy.port;
-  type.value = page.proxy.type;
-}
-
 function onError(error) {
   console.log(`Error: ${error}`);
 }
@@ -40,11 +33,7 @@ var get_background = browser.runtime.getBackgroundPage();
 /* initialize values */
 get_background.then(init, onError);
 
-reset.onclick = function() {
-  get_background.then(reset_fields, onError);
-}
-
-apply.onclick = function() {
+form.onsubmit = function() {
   get_background.then(save, onError);
 }
 

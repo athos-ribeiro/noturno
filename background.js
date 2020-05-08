@@ -5,7 +5,7 @@ browser.proxy.onError.addListener(error => {
 
 var proxy = {
   enabled: false,
-  type: 'http',
+  type: '',
   host: '',
   port: '',
   filters: {urls: ["<all_urls>"]}

@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Respect browser and system proxy settings when noturno is off
 
+### Changed
+- Minor changes to UI
+
+### Removed
+- Removed reset button
+
 ## [2.0.0] 05-01-2020
 ### Added
 - Support for Firefox >= 60

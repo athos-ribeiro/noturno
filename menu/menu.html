@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="menu.css"/>
   </head>
 
-<body>
-  <div class="panel">
+<body class="panel">
 
     <div class="panel-section panel-section-header">
       <img class="icon-section-header" id="icon" src="../data/on_32.png"/>
@@ -18,29 +17,39 @@
       </label>
     </div>
 
-    <div class="panel-section type-selection">
-      <label for="type">Protocol:</label>
-      <select class="selection-box" id="type">
-        <option value="http">HTTP</option>
-        <option value="https">HTTPS</option>
-        <option value="socks4">SOCKS4</option>
-        <option value="socks">SOCKS5</option>
-      </select>
+    <div class="panel-section panel-section-tabs">
+      <div class="panel-section-tabs-button selected">Proxy settings</div>
+      <!--<div class="panel-section-tabs-separator"></div>-->
+      <!--<div class="panel-section-tabs-button">Filters</div>-->
     </div>
 
-    <div class="panel-section">
-      <input class="panel-formElements-item" type="text" id="host" placeholder="Host">
-    </div>
-    <div class="panel-section">
-      <input class="panel-formElements-item" type="text" id="port" placeholder="Port">
-    </div>
 
-    <div class="panel-section panel-section-footer">
-      <div id="apply" class="panel-section-footer-button default">Save</div>
-      <div id="reset" class="panel-section-footer-button">Reset</div>
-    </div>
+    <form id="settings-form" class="browser-style">
+    <div class="panel-section panel-section-formElements">
 
-  </div>
+      <div class="panel-formElements-item">
+        <select id="type" title="Proxy protocol">
+          <option value="" disabled selected>Protocol</option>
+          <option value="http">HTTP</option>
+          <option value="https">HTTPS</option>
+          <option value="socks4">SOCKS4</option>
+          <option value="socks">SOCKS5</option>
+        </select>
+      </div>
+
+      <div class="panel-formElements-item">
+        <input type="text" id="host" placeholder="Host" title="Proxy server hostname">
+      </div>
+      <div class="panel-formElements-item">
+        <input type="text" id="port" placeholder="Port" title="Proxy server port">
+      </div>
+
+      <div class="panel-formElements-item">
+        <button type="submit" class="browser-style default save">Save</button>
+      </div>
+
+    </div>
+    </form>
 
   <script src="menu.js"></script>
 </body>
