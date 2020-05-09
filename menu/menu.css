@@ -99,3 +99,47 @@ button.browser-style.default.save {
 .display-block{
   display: block;
 }
+
+.tab-content {
+  width: 256px;
+  display: none;
+}
+
+.card {
+    border: 0;
+    border-radius: 6px;
+    color: #333;
+    background: #ededf0;
+    width: 85%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+  /*margin-top: -15px;*/
+}
+
+.card-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  color: #058b00;
+  margin-top: -15px;
+}
+
+.card-category {
+  font-size: 17px;
+  font-weight: 600;
+  color: #b1b1b3;
+  text-align: right;
+  margin-right: 10px;
+}
+
+
+.proxy-info {
+}

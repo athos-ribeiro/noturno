@@ -4,9 +4,53 @@ var host = document.getElementById('host');
 var port = document.getElementById('port');
 var type = document.getElementById('type');
 var form = document.getElementById('settings-form');
+
 var typeErr = document.getElementById("error-type")
 var hostErr = document.getElementById("error-host")
 var portErr = document.getElementById("error-port")
+
+var displayTabButton = document.getElementById("display-tab-button")
+var settingsTabButton = document.getElementById("settings-tab-button")
+
+var tabButtons = document.querySelectorAll('.panel-section-tabs-button');
+var tabContents = document.querySelectorAll('.tab-content');
+
+displayTabButton.onclick = function() {
+  changeTab(event, "display-tab")
+}
+
+settingsTabButton.onclick = function() {
+  changeTab(event, "settings-tab")
+}
+
+function changeTab(evt, tabId) {
+  console.debug("Changing to tab " + tabId);
+
+  for(i = 0; i < tabButtons.length; i++) {
+    if(tabButtons[i].id == evt.currentTarget.id) {
+      tabButtons[i].setAttribute("class", "panel-section-tabs-button selected")
+    } else {
+      tabButtons[i].setAttribute("class", "panel-section-tabs-button")
+    }
+  }
+
+  for(i = 0; i < tabContents.length; i++) {
+    tabContents[i].style.display = "none";
+  }
+
+  tab = document.getElementById(tabId)
+  tab.style.display = "block";
+}
+
+function setInfoPage(type, host, port) {
+  if(!host){
+    document.getElementById("host-info").innerHTML = "NO PROXY";
+    return
+  }
+  document.getElementById("type-info").innerHTML = type.toUpperCase();
+  document.getElementById("host-info").innerHTML = host;
+  document.getElementById("port-info").innerHTML = port;
+}
 
 function init(page) {
   page.getProxyConfig();
@@ -14,6 +58,7 @@ function init(page) {
   port.value = page.proxy.port;
   type.value = page.proxy.type;
   toggle_switch.checked = page.proxy.enabled;
+  setInfoPage(page.proxy.type, page.proxy.host, page.proxy.port)
 }
 
 function toggle(page) {
