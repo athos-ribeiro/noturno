@@ -44,12 +44,12 @@ function changeTab(evt, tabId) {
 
 function setInfoPage(type, host, port) {
   if(!host){
-    document.getElementById("host-info").innerHTML = "NO PROXY";
+    document.getElementById("host-info").textContent = "NO PROXY";
     return
   }
-  document.getElementById("type-info").innerHTML = type.toUpperCase();
-  document.getElementById("host-info").innerHTML = host;
-  document.getElementById("port-info").innerHTML = port;
+  document.getElementById("type-info").textContent = type.toUpperCase();
+  document.getElementById("host-info").textContent = host;
+  document.getElementById("port-info").textContent = port;
 }
 
 function init(page) {
@@ -101,21 +101,21 @@ form.onsubmit = function() {
   if(!port.value) {
     var errMsg = "Port should not be blank"
     port.setCustomValidity(errMsg);
-    portErr.innerHTML = errMsg
+    portErr.textContent = errMsg
     portErr.setAttribute("class", "text-error display-block")
     valid = false
   }
   if(!host.value) {
     var errMsg = "Host should not be blank"
     host.setCustomValidity(errMsg);
-    hostErr.innerHTML = errMsg
+    hostErr.textContent = errMsg
     hostErr.setAttribute("class", "text-error display-block")
     valid = false
   }
   if(!type.value) {
     var errMsg = "Select a protocol"
     type.setCustomValidity(errMsg);
-    typeErr.innerHTML = errMsg
+    typeErr.textContent = errMsg
     typeErr.setAttribute("class", "text-error display-block")
     valid = false
   }

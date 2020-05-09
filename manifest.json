@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "noturno",
-  "version": "2.1.1~dev",
+  "version": "2.1.1",
   "description": "Easily switch between proxy configurations",
   "permissions": [
     "proxy",
