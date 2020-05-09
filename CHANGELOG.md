@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Respect browser and system proxy settings when noturno is off
 
 ### Changed
-- Minor changes to UI
+- New UI
 
 ### Removed
 - Removed reset button

@@ -85,3 +85,17 @@ button.browser-style.default.save {
 .panel-formElements-item select {
   flex-grow: 1;
 }
+
+.text-error {
+  background:rgba(251, 0, 34, 0.3);
+  color:black;
+  border-radius:5px;
+  padding:5px 3px;
+  margin-bottom:10px;
+  text-align: center;
+  display: none;
+  font-weight: bold;
+}
+.display-block{
+  display: block;
+}
