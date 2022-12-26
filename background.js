@@ -46,8 +46,8 @@ function init() {
         proxy.port = storedSettings.port;
         proxy.type = storedSettings.type;
         if(proxy.enabled) {
-          browser.browserAction.setIcon({path: proxyOnIcon});
-          browser.browserAction.setTitle({title: proxyOnLabel});
+          browser.action.setIcon({path: proxyOnIcon});
+          browser.action.setTitle({title: proxyOnLabel});
           browser.proxy.onRequest.addListener(proxyListener, proxy.filters);
         }
       } else if(hasNoRequiredKeys) {
@@ -78,14 +78,14 @@ function toggleProxyConfig() {
   proxy.enabled = !proxy.enabled;
   if(proxy.enabled) {
     console.debug("Proxy has been turned ON")
-    browser.browserAction.setIcon({path: proxyOnIcon});
-    browser.browserAction.setTitle({title: proxyOnLabel});
+    browser.action.setIcon({path: proxyOnIcon});
+    browser.action.setTitle({title: proxyOnLabel});
     browser.proxy.onRequest.addListener(proxyListener, proxy.filters);
   }
   else {
     console.debug("Proxy has been turned OFF")
-    browser.browserAction.setIcon({path: proxyOffIcon});
-    browser.browserAction.setTitle({title: proxyOffLabel});
+    browser.action.setIcon({path: proxyOffIcon});
+    browser.action.setTitle({title: proxyOffLabel});
     browser.proxy.onRequest.removeListener(proxyListener);
   }
   saveProxyConfig();
@@ -93,10 +93,10 @@ function toggleProxyConfig() {
 
 function toggleOneClickToggle(checked) {
   if(checked){
-    browser.browserAction.setPopup({popup: ""})
-    browser.browserAction.onClicked.addListener(toggleProxyConfig)
+    browser.action.setPopup({popup: ""})
+    browser.action.onClicked.addListener(toggleProxyConfig)
   } else {
-    browser.browserAction.setPopup({popup: "menu/menu.html"})
+    browser.action.setPopup({popup: "menu/menu.html"})
   }
   oneClickToggle = checked
   browser.storage.local.set({oneClickToggle: checked});
@@ -112,13 +112,18 @@ browser.commands.onCommand.addListener(function(command) {
   }
 });
 
-browser.menus.create({
-  id: "oneClickToggle",
-  type: "checkbox",
-  title: "One click toggle",
-  contexts: ["browser_action"],
-  checked: oneClickToggle
-});
+function createMenu(details) {
+  console.log(details.reason);
+  browser.menus.create({
+    id: "oneClickToggle",
+    type: "checkbox",
+    title: "One click toggle",
+    contexts: ["browser_action"],
+    checked: oneClickToggle
+  });
+}
+
+browser.runtime.onInstalled.addListener(createMenu);
 
 browser.menus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "oneClickToggle") {
