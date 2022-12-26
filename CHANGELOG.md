@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
+### Changed
+- Use manifest.json v3 format
+- Extension now requests host permissions for all sites before first use
+
+### Removed
+- Support for Firefox < 101
 
 ## [2.1.1] 05-10-2020
 ### Fixed
