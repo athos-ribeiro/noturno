@@ -29,6 +29,10 @@ const proxyOffIcon = {
   "64": "data/off_64.png"
 };
 
+const proxyPermission = {
+  origins: ["<all_urls>"]
+};
+
 const proxyOnLabel = "Proxy is On - press Alt+Shift+X to turn off";
 const proxyOffLabel = "Proxy is Off - press Alt+Shift+X to turn on";
 
@@ -74,6 +78,16 @@ function saveProxyConfig() {
     browser.storage.local.set(proxy);
 }
 
+async function requestPermission() {
+  const response = await browser.permissions.request(proxyPermission);
+  if (response) {
+    console.log("Permission was granted");
+    browser.action.setPopup({popup: "menu/menu.html"})
+  } else {
+    console.log("Permission was denied");
+  }
+}
+
 function toggleProxyConfig() {
   proxy.enabled = !proxy.enabled;
   if(proxy.enabled) {
@@ -103,6 +117,15 @@ function toggleOneClickToggle(checked) {
 }
 
 init();
+
+async function checkPermission() {
+  const has_permission = await browser.permissions.contains(proxyPermission);
+  if (!has_permission) {
+      browser.action.setPopup({popup: ""})
+      browser.action.onClicked.addListener(requestPermission)
+  }
+}
+checkPermission();
 
 browser.commands.onCommand.addListener(function(command) {
   if (command == "toggle-status") {
