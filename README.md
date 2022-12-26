@@ -51,7 +51,6 @@ host or port, you need to deactivate the "One click togle" feature.
 noturno does not support android for now. The calls bellow are not supported on
 Android versions of Firefox, which are used by noturno.
 
-* browser.action.setIcon
 * browser.commands.onCommand.addListener
 
 ### Calls to WebExtensions API
