@@ -62,6 +62,8 @@ useful whenever porting noturno to other platforms.
 * browser.action.setTitle
 * browser.commands.onCommand.addListener
 * browser.extension.getURL
+* browser.permissions.contains
+* browser.permissions.request
 * browser.proxy.onError.addListener
 * browser.proxy.onRequest.addListener
 * browser.runtime.getBackgroundPage
